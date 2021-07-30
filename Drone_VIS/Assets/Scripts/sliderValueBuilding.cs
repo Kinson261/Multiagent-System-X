@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class sliderValue : MonoBehaviour
+public class sliderValueBuilding : MonoBehaviour
 {
     public Slider slider;
     public int sliderValStart;
@@ -34,9 +34,9 @@ public class sliderValue : MonoBehaviour
     {
         if (diff > 0)
         {
-            objectToDuplicate = GameObject.Find("MobileRobot");
+            objectToDuplicate = GameObject.Find("Building");
             //Instantiate(objectToDuplicate, new Vector3(i * 7.0F, 0 * 30.0F + 5.0f, 0 * 30.0F+10.0f), Quaternion.identity);
-            Instantiate(objectToDuplicate, new Vector3(Random.Range(-150.0f,150.0f), 5.0f , Random.Range(-150.0f, 150.0f)), Quaternion.identity);
+            Instantiate(objectToDuplicate, new Vector3(Random.Range(-150.0f, 150.0f), 0f, Random.Range(-150.0f, 150.0f)), Quaternion.identity);
             i++;
         }
 
@@ -56,7 +56,7 @@ public class sliderValue : MonoBehaviour
     {
         if (diff < 0)
         {
-            objectToDuplicate = GameObject.Find("MobileRobot(Clone)");
+            objectToDuplicate = GameObject.Find("Building(Clone)");
             Destroy(objectToDuplicate, 1.0F);
             //for (int i = diff; i > 0; i--)
             //{
