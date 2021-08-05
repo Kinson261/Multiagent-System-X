@@ -17,10 +17,6 @@ public class buildingManager : MonoBehaviour
     public Vector3 pos;
 
 
-    //public int minHeight;
-    //public int maxHeight;
-
-
 
 
     // Start is called before the first frame update
@@ -51,7 +47,7 @@ public class buildingManager : MonoBehaviour
             buildings[i] = GameObject.Instantiate(objectToCopy);
             buildings[i].transform.position = new Vector3(Random.Range(-150.0f, 150.0f), 5f, Random.Range(-150.0f, 150.0f));
             buildings[i].transform.rotation = Quaternion.identity;
-            buildings[i].transform.localScale = new Vector3(Random.Range(6f, 12f), Random.Range(12f,40f), Random.Range(7f, 15f));
+            buildings[i].transform.localScale = new Vector3(Random.Range(4f, 10f), Random.Range(6f,15f), Random.Range(7f, 12f));
             buildings[i].name = "Building" + i;
             pos.x++;
             i++;
