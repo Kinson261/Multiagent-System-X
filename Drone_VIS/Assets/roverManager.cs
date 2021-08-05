@@ -45,7 +45,7 @@ public class roverManager : MonoBehaviour
         if (i<iMax)
         {
             rovers[i] = GameObject.Instantiate(objectToCopy);
-            rovers[i].transform.position = new Vector3(Random.Range(-150.0f, 150.0f), 0f, Random.Range(-150.0f, 150.0f));
+            rovers[i].transform.position = new Vector3(Random.Range(-150.0f, 150.0f), 1f, Random.Range(-150.0f, 150.0f));
             rovers[i].transform.rotation = Quaternion.identity;
             rovers[i].name = "MobileRobot" + i;
             pos.x++;
