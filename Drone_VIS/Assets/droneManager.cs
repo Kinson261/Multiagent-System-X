@@ -10,6 +10,11 @@ public class droneManager : MonoBehaviour
     private GameObject objectToDestroy;
     private GameObject deleteFirst;
 
+
+    public GameObject CameraPrefab;
+    private GameObject cameras;
+    private GameObject cameraManager;
+
     public Slider slider;
     public int i;
     public int iMax;
@@ -37,6 +42,7 @@ public class droneManager : MonoBehaviour
         iMax = (int)GetComponent<Slider>().value;
         Duplicate();
         Delete();
+        //addCamera();
     }
 
 
@@ -63,4 +69,15 @@ public class droneManager : MonoBehaviour
             i--;
         }
     }
+
+    //public void addCamera()
+    //{
+    //    cameraManager = GameObject.Find("cameraManager");
+
+     //   cameras = (GameObject)GameObject.Instantiate(CameraPrefab);
+     //   cameras.name = "VCam MAV" + i.ToString();
+     //   //cameras.transform.SetParent(cameraManager.transform);
+     //   cameras.transform.localPosition = Vector3.zero;
+      //  cameras.transform.localRotation = Quaternion.identity;
+    //}
 }
