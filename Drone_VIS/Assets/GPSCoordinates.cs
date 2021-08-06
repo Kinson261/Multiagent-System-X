@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class GPSCoordinates : MonoBehaviour
 {
-
+    public Text id;
     public Text Lat;
     public Text Lon;
     public Text Alt;
@@ -19,12 +19,14 @@ public class GPSCoordinates : MonoBehaviour
     {
         //gameObject = Selection.activeGameObject;
         //gameObject = (GameObject)Selection.activeObject;
+        gameObject = GameObject.Find("MobileRobot");
     }
 
     // Update is called once per frame
     public void Update()
     {
         gameObject = (GameObject)Selection.activeObject;
+        id.text = "id: " + gameObject.name.ToString();
         Lat.text = "Lat:" + gameObject.transform.position.x.ToString();
         Lon.text = "Lon: " + gameObject.transform.position.z.ToString();
         Alt.text = "Alt: " + gameObject.transform.position.y.ToString();
