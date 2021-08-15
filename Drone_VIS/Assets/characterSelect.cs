@@ -33,6 +33,18 @@ public class characterSelect : MonoBehaviour
             if (currentAgent != Agents[i])
             {
                 Agents[i].SetActive(false);
+
+                //if (Agents[i] = GameObject.FindGameObjectWithTag("Drone"))
+                //{
+                //   Agents[i].GetComponent<DroneMovementScript>().enabled = false;
+                //}
+
+                //if (Agents[i] = GameObject.FindGameObjectWithTag("mobile robots"))
+                //{
+                //    Agents[i].GetComponent<Car_Control5>().enabled = false;
+                //}
+
+                    
             }
             else
             {
