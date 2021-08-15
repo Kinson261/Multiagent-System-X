@@ -26,33 +26,76 @@ public class BuildingOnSurface : MonoBehaviour
     public float changeValue;
     public float percentage;
 
-    private float randPosX;
-    private float randPosY;
-    private float randPosZ;
+    private float randPosX, randPosY, randPosZ;
 
+    private float randScX, randScY, randScZ;
 
-    private float randScX;
-    private float randScY;
-    private float randScZ;
+    [Space]
+    [Space]
+    public InputField inputFieldMinX;
+    public InputField inputFieldMinY;
+    public InputField inputFieldMinZ;
+    public InputField inputFieldMaxX;
+    public InputField inputFieldMaxY;
+    public InputField inputFieldMaxZ;
+
+    [Space]
+    [Space]
+    private float minX;
+    private float minY;
+    private float minZ;
+    private float maxX;
+    private float maxY;
+    private float maxZ;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        pos = new Vector3(Random.Range(-PlanScript.boundX, PlanScript.boundX), 4f, Random.Range(-PlanScript.boundZ, PlanScript.boundZ));
-        
-        
+
+        inputFieldMinX.text = "8";
+        inputFieldMinY.text = "12";
+        inputFieldMinZ.text = "14";
+        inputFieldMaxX.text = "20";
+        inputFieldMaxY.text = "30";
+        inputFieldMaxZ.text = "24";
+
+        float.TryParse(inputFieldMinX.text, out minX);
+        float.TryParse(inputFieldMinY.text, out minY);
+        float.TryParse(inputFieldMinZ.text, out minZ);
+        float.TryParse(inputFieldMaxX.text, out maxX);
+        float.TryParse(inputFieldMaxY.text, out maxY);
+        float.TryParse(inputFieldMaxZ.text, out maxZ);
+
+        inputFieldMinX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMinY.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMinZ.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxY.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxZ.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
 
         m_dropdown.onValueChanged.AddListener(delegate
         {
             dropdownValueChanged(m_dropdown);
 
         });
+    }
+
+
+    public void ValueChangeCheck()
+    {
+        float.TryParse(inputFieldMinX.text, out minX);
+        float.TryParse(inputFieldMinY.text, out minY);
+        float.TryParse(inputFieldMinZ.text, out minZ);
+        float.TryParse(inputFieldMaxX.text, out maxX);
+        float.TryParse(inputFieldMaxY.text, out maxY);
+        float.TryParse(inputFieldMaxZ.text, out maxZ);
 
     }
 
     private void dropdownValueChanged(Dropdown change)
     {
+        ValueChangeCheck();
         generation(change);
         
     }
@@ -156,9 +199,9 @@ public class BuildingOnSurface : MonoBehaviour
             randPosZ = Random.Range(-PlanScript.boundZ, PlanScript.boundZ);
             cubes[i] = Instantiate(ObjectToDuplicate, new Vector3(randPosX, randPosY, randPosZ), Quaternion.identity);
             
-            randScX = Random.Range(8f, 20f);
-            randScY = Random.Range(12f, 30f);
-            randScZ = Random.Range(14f, 24f);
+            randScX = Random.Range(minX, maxX);
+            randScY = Random.Range(minY, maxY);
+            randScZ = Random.Range(minZ, maxZ);
             cubes[i].transform.localScale = new Vector3(randScX, randScY, randScZ);
 
             cubes[i].transform.position = new Vector3(randPosX, randScY/2, randPosZ);
@@ -180,10 +223,6 @@ public class BuildingOnSurface : MonoBehaviour
             {
                 continue;
             }
-
-            //sum += surfaceCube;
-            //pos.x++;
-            //i++;
             
         }
 
