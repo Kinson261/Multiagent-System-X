@@ -19,7 +19,7 @@ public class GPSCoordinates : MonoBehaviour
     {
         //gameObject = Selection.activeGameObject;
         //gameObject = (GameObject)Selection.activeObject;
-        gameObject = GameObject.Find("MobileRobot");
+        gameObject = GameObject.Find("MobileRobot0");
     }
 
     // Update is called once per frame
@@ -27,8 +27,8 @@ public class GPSCoordinates : MonoBehaviour
     {
         gameObject = (GameObject)Selection.activeObject;
         id.text = "id: " + gameObject.name.ToString();
-        Lat.text = "Lat:" + gameObject.transform.position.x.ToString();
-        Lon.text = "Lon: " + gameObject.transform.position.z.ToString();
-        Alt.text = "Alt: " + gameObject.transform.position.y.ToString();
+        Lat.text = "X:" + gameObject.transform.position.x.ToString();
+        Lon.text = "Z: " + gameObject.transform.position.z.ToString();
+        Alt.text = "Y: " + gameObject.transform.position.y.ToString();
     }
 }
