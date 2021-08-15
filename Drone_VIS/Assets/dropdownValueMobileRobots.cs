@@ -5,20 +5,40 @@ using UnityEngine.UI;
 
 public class dropdownValueMobileRobots : MonoBehaviour
 {
-    Dropdown m_Dropdown;
-    public int m_DropdownValue;
+    [Space]
+    [Space]
     public planScript PlanScript;
-
-    public GameObject[] rovers = new GameObject[20];
-    public GameObject objectToCopy;
+    private GameObject[] rovers = new GameObject[20];
+    private GameObject objectToCopy;
     private GameObject objectToDestroy;
 
-    public Dropdown dropdown;
-    public int i;
-    public int iMax;
-    public Vector3 pos;
+    //public Dropdown dropdown;
+    public Dropdown m_Dropdown;
+    public int m_DropdownValue;
+    private int i;
+    private int iMax;
     public GameObject[] NB;
 
+    [Space]
+    [Space]
+    public Toggle m_Toggle;
+    public bool random;
+
+    [Space]
+    [Space]
+    public InputField inputFieldX;
+    public InputField inputFieldY;
+    public InputField inputFieldZ;
+
+    [Space]
+    [Space]
+    public Vector3 pos;
+    private float initPosX;
+    private float initPosY;
+    private float initPosZ;
+
+    [Space]
+    [Space]
     private float randPosX;
     private float randPosY;
     private float randPosZ;
@@ -26,12 +46,21 @@ public class dropdownValueMobileRobots : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pos = new Vector3(Random.Range(-150.0f, 150.0f), 1f, Random.Range(-150.0f, 150.0f));
+        inputFieldX.text = "0";
+        inputFieldY.text = "0";
+        inputFieldZ.text = "0";
 
+        //Adds a listener to the main input field and invokes a method when the value changes.
+        inputFieldX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldY.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldZ.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+
+
+        pos = new Vector3(initPosX, initPosY, initPosZ);
+
+        
         objectToCopy = GameObject.Find("MobileRobot0");
 
-
-        m_Dropdown = GetComponent<Dropdown>();
 
         determineI();
 
@@ -39,6 +68,32 @@ public class dropdownValueMobileRobots : MonoBehaviour
         {
             DropdownValueChanged(m_Dropdown);
         });
+
+
+
+        m_Toggle = GameObject.Find("ToggleMobileRobot").GetComponent<Toggle>();
+        random = m_Toggle.isOn;
+
+        //Add listener for when the state of the Toggle changes, and output the state
+        m_Toggle.onValueChanged.AddListener(delegate {
+            ToggleValueChanged(m_Toggle);
+        });
+
+    }
+
+
+    public void ValueChangeCheck()
+    {
+        float.TryParse(inputFieldX.text, out initPosX);
+        float.TryParse(inputFieldY.text, out initPosY);
+        float.TryParse(inputFieldZ.text, out initPosZ);
+
+    }
+
+
+    public void ToggleValueChanged(Toggle m_Toggle)
+    {
+        random = m_Toggle.isOn;
     }
 
     void DropdownValueChanged(Dropdown change)
@@ -56,25 +111,35 @@ public class dropdownValueMobileRobots : MonoBehaviour
         for (i = NB.Length; i <= iMax; i++)
         {
             randPosX = Random.Range(-PlanScript.boundX, PlanScript.boundX);
-            randPosY = 0;
+            randPosY = 1;
             randPosZ = Random.Range(-PlanScript.boundZ, PlanScript.boundZ);
-            rovers[i] = Instantiate(objectToCopy, new Vector3 (randPosX, randPosY, randPosZ), Quaternion.identity);
 
-            rovers[i].transform.position = new Vector3(Random.Range(-150.0f, 150.0f), 1f, Random.Range(-150.0f, 150.0f));
+            random = m_Toggle.isOn;
+            rovers[i] = GameObject.Instantiate(objectToCopy);
+
+            if (random == true)
+            {
+                rovers[i].transform.position = new Vector3(randPosX, randPosY, randPosZ);
+            }
+            else
+            {
+                rovers[i].transform.position = new Vector3(initPosX, initPosY, initPosZ);
+                initPosX = initPosX + 3f;
+            }
+
             rovers[i].transform.rotation = Quaternion.identity;
             rovers[i].name = "MobileRobot" + i;
-            pos.x++;
-            //i++;
+
         }
         
     }
 
     public void Delete()
     {
-        
-        for (i = 0; i<rovers.Length; i++)
+        for (iMax = m_Dropdown.value; iMax <= i; iMax++)
         {
-            Destroy(rovers[i].gameObject);
+            objectToDestroy = GameObject.Find("MobileRobot" + iMax.ToString());
+            Destroy(objectToDestroy);
         }
     }
 
