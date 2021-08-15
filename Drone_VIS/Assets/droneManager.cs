@@ -63,7 +63,6 @@ public class droneManager : MonoBehaviour
     {
         if (iMax < i)
         {
-            //string name = "MobileRobot" + iMax.ToString();
             objectToDestroy = GameObject.Find("MAV" + iMax.ToString());
             Destroy(objectToDestroy);
             i--;
@@ -73,11 +72,12 @@ public class droneManager : MonoBehaviour
     //public void addCamera()
     //{
     //    cameraManager = GameObject.Find("cameraManager");
-
-     //   cameras = (GameObject)GameObject.Instantiate(CameraPrefab);
-     //   cameras.name = "VCam MAV" + i.ToString();
-     //   //cameras.transform.SetParent(cameraManager.transform);
-     //   cameras.transform.localPosition = Vector3.zero;
-      //  cameras.transform.localRotation = Quaternion.identity;
+    //
+    //    CameraPrefab = GameObject.Find("CameraMAV");
+    //    cameras = GameObject.Instantiate(CameraPrefab);
+    //    cameras.name = "VCam MAV" + i.ToString();
+    //   cameras.transform.SetParent(cameraManager.transform);
+    //    cameras.transform.localPosition = Vector3.zero;
+    //    cameras.transform.localRotation = Quaternion.identity;
     //}
 }
