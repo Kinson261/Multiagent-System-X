@@ -19,7 +19,7 @@ public class GPSCoordinates : MonoBehaviour
     {
         //gameObject = Selection.activeGameObject;
         //gameObject = (GameObject)Selection.activeObject;
-        gameObject = GameObject.Find("MobileRobot0");
+        //gameObject = GameObject.Find("MobileRobot0");
     }
 
     // Update is called once per frame
