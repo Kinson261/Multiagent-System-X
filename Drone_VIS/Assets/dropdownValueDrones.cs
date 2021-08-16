@@ -8,6 +8,9 @@ public class dropdownValueDrones : MonoBehaviour
     [Space]
     [Space]
     public planScript PlanScript;
+    public dropdownHandler dropdownScript;
+    public List<GameObject> allAgents;
+
     private GameObject[] drones = new GameObject[20];
     private GameObject objectToCopy;
     private GameObject objectToDestroy;
@@ -46,6 +49,10 @@ public class dropdownValueDrones : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //dropdownScript = GameObject.Find("DropdownID").GetComponent<dropdownHandler>();
+        //allAgents = dropdownScript.allAgents;
+
         inputFieldX.text = "0";
         inputFieldY.text = "0";
         inputFieldZ.text = "0";
@@ -131,7 +138,11 @@ public class dropdownValueDrones : MonoBehaviour
            
             drones[i].transform.rotation = Quaternion.identity;
             drones[i].name = "MAV" + i;
-            
+
+
+            /////////////////////////
+            //allAgents.Add(drones[i]);
+            /////////////////////////
         }
 
     }
@@ -142,6 +153,7 @@ public class dropdownValueDrones : MonoBehaviour
         {
             objectToDestroy = GameObject.Find("MAV" + iMax.ToString());
             Destroy(objectToDestroy);
+            //allAgents.Remove(drones[iMax]);
         }
     }
 
