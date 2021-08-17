@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class cameraController : MonoBehaviour
 {
-    public Camera[] cameras;
+    public Camera[] cameras = new Camera[45];
     private int currentCameraIndex;
 
     // Use this for initialization
@@ -29,6 +29,7 @@ public class cameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        cameras = FindObjectsOfType<Camera>();
         //If the c button is pressed, switch to the next camera
         //Set the camera at the current index to inactive, and set the next one in the array to active
         //When we reach the end of the camera array, move back to the beginning or the array.
