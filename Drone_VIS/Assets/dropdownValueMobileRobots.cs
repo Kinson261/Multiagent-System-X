@@ -8,6 +8,11 @@ public class dropdownValueMobileRobots : MonoBehaviour
     [Space]
     [Space]
     public planScript PlanScript;
+    public dropdownHandler dropdownScript;
+    public List<GameObject> allAgents;
+
+    [Space]
+    [Space]
     private GameObject[] rovers = new GameObject[20];
     private GameObject objectToCopy;
     private GameObject objectToDestroy;
@@ -22,7 +27,7 @@ public class dropdownValueMobileRobots : MonoBehaviour
     [Space]
     [Space]
     public Toggle m_Toggle;
-    public bool random;
+    public bool custom;
 
     [Space]
     [Space]
@@ -46,9 +51,13 @@ public class dropdownValueMobileRobots : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputFieldX.text = "0";
-        inputFieldY.text = "0";
-        inputFieldZ.text = "0";
+
+        //dropdownScript = GameObject.Find("DropdownID").GetComponent<dropdownHandler>();
+        //allAgents = dropdownScript.allAgents;
+
+        inputFieldX.text = "X";
+        inputFieldY.text = "Y";
+        inputFieldZ.text = "Z";
 
         //Adds a listener to the main input field and invokes a method when the value changes.
         inputFieldX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
@@ -72,7 +81,7 @@ public class dropdownValueMobileRobots : MonoBehaviour
 
 
         m_Toggle = GameObject.Find("ToggleMobileRobot").GetComponent<Toggle>();
-        random = m_Toggle.isOn;
+        custom = m_Toggle.isOn;
 
         //Add listener for when the state of the Toggle changes, and output the state
         m_Toggle.onValueChanged.AddListener(delegate {
@@ -93,16 +102,18 @@ public class dropdownValueMobileRobots : MonoBehaviour
 
     public void ToggleValueChanged(Toggle m_Toggle)
     {
-        random = m_Toggle.isOn;
+        custom = m_Toggle.isOn;
     }
 
     void DropdownValueChanged(Dropdown change)
     {
-        Delete();
+        
         determineI();
         iMax = (int)m_Dropdown.value;
+        ToggleValueChanged(m_Toggle);
         Duplicate();
-        
+        Delete();
+
     }
 
 
@@ -114,24 +125,29 @@ public class dropdownValueMobileRobots : MonoBehaviour
             randPosY = 1;
             randPosZ = Random.Range(-PlanScript.boundZ, PlanScript.boundZ);
 
-            random = m_Toggle.isOn;
+            custom = m_Toggle.isOn;
             rovers[i] = GameObject.Instantiate(objectToCopy);
 
-            if (random == true)
+            if (custom == false)
             {
                 rovers[i].transform.position = new Vector3(randPosX, randPosY, randPosZ);
             }
             else
             {
                 rovers[i].transform.position = new Vector3(initPosX, initPosY, initPosZ);
-                initPosX = initPosX + 3f;
+                initPosX = initPosX + 5f;
             }
 
             rovers[i].transform.rotation = Quaternion.identity;
             rovers[i].name = "MobileRobot" + i;
 
+
+            /////////////////////////
+            //allAgents.Add(drones[i]);
+            /////////////////////////
+
         }
-        
+
     }
 
     public void Delete()
@@ -140,6 +156,7 @@ public class dropdownValueMobileRobots : MonoBehaviour
         {
             objectToDestroy = GameObject.Find("MobileRobot" + iMax.ToString());
             Destroy(objectToDestroy);
+            //allAgents.Remove(drones[iMax]);
         }
     }
 

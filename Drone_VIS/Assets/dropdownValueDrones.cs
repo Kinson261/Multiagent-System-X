@@ -11,6 +11,8 @@ public class dropdownValueDrones : MonoBehaviour
     public dropdownHandler dropdownScript;
     public List<GameObject> allAgents;
 
+    [Space]
+    [Space]
     private GameObject[] drones = new GameObject[20];
     private GameObject objectToCopy;
     private GameObject objectToDestroy;
@@ -25,7 +27,7 @@ public class dropdownValueDrones : MonoBehaviour
     [Space]
     [Space]
     public Toggle m_Toggle;
-    public bool random;
+    public bool custom;
 
     [Space]
     [Space]
@@ -53,9 +55,9 @@ public class dropdownValueDrones : MonoBehaviour
         //dropdownScript = GameObject.Find("DropdownID").GetComponent<dropdownHandler>();
         //allAgents = dropdownScript.allAgents;
 
-        inputFieldX.text = "0";
-        inputFieldY.text = "0";
-        inputFieldZ.text = "0";
+        inputFieldX.text = "X";
+        inputFieldY.text = "Y";
+        inputFieldZ.text = "Z";
 
         //Adds a listener to the main input field and invokes a method when the value changes.
         inputFieldX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
@@ -79,7 +81,7 @@ public class dropdownValueDrones : MonoBehaviour
 
 
         m_Toggle = GameObject.Find("ToggleDrone").GetComponent<Toggle>();
-        random = m_Toggle.isOn;
+        custom = m_Toggle.isOn;
 
         //Add listener for when the state of the Toggle changes, and output the state
         m_Toggle.onValueChanged.AddListener(delegate {
@@ -100,7 +102,7 @@ public class dropdownValueDrones : MonoBehaviour
 
     public void ToggleValueChanged(Toggle m_Toggle)
     {
-        random = m_Toggle.isOn;
+        custom = m_Toggle.isOn;
     }
 
 
@@ -123,10 +125,10 @@ public class dropdownValueDrones : MonoBehaviour
             randPosY = Random.Range(-PlanScript.boundY, PlanScript.boundY);
             randPosZ = Random.Range(-PlanScript.boundZ, PlanScript.boundZ);
 
-            random = m_Toggle.isOn;
+            custom = m_Toggle.isOn;
             drones[i] = GameObject.Instantiate(objectToCopy);
 
-            if (random == true)
+            if (custom == false)
             {
                 drones[i].transform.position = new Vector3(randPosX, randPosY, randPosZ);
             }
