@@ -12,10 +12,10 @@ public class dropdownHandler : MonoBehaviour
     public Text posX;
     public Text posZ;
     public Text posY;
-    public Text textBox;
 
-    public GameObject gameObject;
-    public GameObject[] objectsWithTags;
+    public GameObject currentSelection;
+    public GameObject[] objectsWithTagsDrone;
+    public GameObject[] objectsWithTagsMobileRobot;
     public int i;
 
     public List<GameObject> allAgents;
@@ -34,13 +34,12 @@ public class dropdownHandler : MonoBehaviour
     
     public void dropdownAgentSelected(Dropdown dropdown)
     {
-        fillAgents();
         int index = dropdown.value;
-        gameObject = GameObject.Find(dropdown.options[index].text);
+        currentSelection = GameObject.Find(dropdown.options[index].text);
         //textBox.text = dropdown.options[index].text;
-        posX.text = "X:" + gameObject.transform.position.x.ToString();
-        posY.text = "Y:" + gameObject.transform.position.y.ToString();
-        posZ.text = "Z:" + gameObject.transform.position.z.ToString();
+        //posX.text = "X:" + gameObject.transform.position.x.ToString();
+        //posY.text = "Y:" + gameObject.transform.position.y.ToString();
+        //posZ.text = "Z:" + gameObject.transform.position.z.ToString();
     }
 
     public void fillAgents()
@@ -48,10 +47,18 @@ public class dropdownHandler : MonoBehaviour
         
         List<GameObject> allAgents = new List<GameObject>();
         dropdown.options.Clear();
-        objectsWithTags = GameObject.FindGameObjectsWithTag("Drone");
-        for (i = 0; i < objectsWithTags.Length; i++)
+        allAgents.Add(GameObject.Find("None"));
+
+        objectsWithTagsDrone = GameObject.FindGameObjectsWithTag("Drone");
+        for (i = 0; i < objectsWithTagsDrone.Length; i++)
         {
-            allAgents.Add(objectsWithTags[i]);
+            allAgents.Add(objectsWithTagsDrone[i]);
+        }
+
+        objectsWithTagsMobileRobot = GameObject.FindGameObjectsWithTag("mobile robots");
+        for (i = 0; i < objectsWithTagsMobileRobot.Length; i++)
+        {
+            allAgents.Add(objectsWithTagsMobileRobot[i]);
         }
 
         //Fill dropdown with agents
@@ -59,15 +66,16 @@ public class dropdownHandler : MonoBehaviour
         {
             dropdown.options.Add(new Dropdown.OptionData() { text = item.name });
         }
+        
     }
 
-    private void Update()
+    public void Update()
     {
-        int index = dropdown.value;
-        gameObject = GameObject.Find(dropdown.options[index].text);
-        //textBox.text = dropdown.options[index].text;
-        posX.text = "X:" + gameObject.transform.position.x.ToString();
-        posY.text = "Y:" + gameObject.transform.position.y.ToString();
-        posZ.text = "Z:" + gameObject.transform.position.z.ToString();
+        fillAgents();
+        //int index = dropdown.value;
+        //currentSelection = GameObject.Find(dropdown.options[index].text);
+        posX.text = "X:" + currentSelection.transform.position.x.ToString();
+        posY.text = "Y:" + currentSelection.transform.position.y.ToString();
+        posZ.text = "Z:" + currentSelection.transform.position.z.ToString();
     }
 }
