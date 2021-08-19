@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/* THIS SCRIPT IS FOR SHOWING/HIDING CANVAS OF PARAMETERS*/
+
 public class hideMenu : MonoBehaviour
 {
     public Button m_button;
     public Canvas canvas;
-    private bool isShowing;
 
     public void Start()
     {
+        //add a listener to check button state
         m_button.onClick.AddListener(delegate { TaskOnClick(); });
     }
 
@@ -19,10 +22,12 @@ public class hideMenu : MonoBehaviour
     {
         if (canvas.enabled == true)
         {
+            //deactivate
             canvas.GetComponent<Canvas>().enabled = false;
         }
         else
         {
+            //activate
             canvas.GetComponent<Canvas>().enabled = true;
         }
     }
