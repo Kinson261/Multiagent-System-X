@@ -6,32 +6,30 @@ using UnityEngine.UI;
 public class BuildingOnSurface : MonoBehaviour
 {
     public GameObject[] cubes = new GameObject[100000];
-    public int i;
-  
     public GameObject ObjectToDuplicate;
-
     public planScript PlanScript;
+    private int i;
 
-    
     [Space]
     [Space]
     public Vector3 pos;
-    public float surfaceCube;
-    public float surfacePlan;
-    public float sum;
-    
+    public float surfacePlan;           //Surface area of plan
+    private float surfaceCube;           //surface area of current cube
+    public float sum;                   //sum of surfaces of all cube
+
     [Space]
     [Space]
     public Dropdown m_dropdown;
     public float changeValue;
     public float percentage;
 
-    private float randPosX, randPosY, randPosZ;
+    private float randPosX, randPosY, randPosZ;         //random position
 
-    private float randScX, randScY, randScZ;
+    private float randScX, randScY, randScZ;            //random scale
 
     [Space]
     [Space]
+    //Create InputField objects
     public InputField inputFieldMinX;
     public InputField inputFieldMinY;
     public InputField inputFieldMinZ;
@@ -41,6 +39,7 @@ public class BuildingOnSurface : MonoBehaviour
 
     [Space]
     [Space]
+    //Associating float to inputfield
     private float minX;
     private float minY;
     private float minZ;
@@ -52,7 +51,7 @@ public class BuildingOnSurface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //init
         inputFieldMinX.text = "8";
         inputFieldMinY.text = "12";
         inputFieldMinZ.text = "14";
@@ -60,6 +59,7 @@ public class BuildingOnSurface : MonoBehaviour
         inputFieldMaxY.text = "30";
         inputFieldMaxZ.text = "24";
 
+        //converting string to float
         float.TryParse(inputFieldMinX.text, out minX);
         float.TryParse(inputFieldMinY.text, out minY);
         float.TryParse(inputFieldMinZ.text, out minZ);
@@ -67,13 +67,16 @@ public class BuildingOnSurface : MonoBehaviour
         float.TryParse(inputFieldMaxY.text, out maxY);
         float.TryParse(inputFieldMaxZ.text, out maxZ);
 
-        inputFieldMinX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMinY.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMinZ.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMaxX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMaxY.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMaxZ.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        //adds listener to value change of inputfield
+        inputFieldMinX.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMinY.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMinZ.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxX.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxY.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxZ.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
 
+
+        //adds listener to value change of dropdown
         m_dropdown.onValueChanged.AddListener(delegate
         {
             dropdownValueChanged(m_dropdown);
@@ -82,6 +85,7 @@ public class BuildingOnSurface : MonoBehaviour
     }
 
 
+    //converting string to float
     public void ValueChangeCheck()
     {
         float.TryParse(inputFieldMinX.text, out minX);
@@ -93,12 +97,6 @@ public class BuildingOnSurface : MonoBehaviour
 
     }
 
-    private void dropdownValueChanged(Dropdown change)
-    {
-        ValueChangeCheck();
-        generation(change);
-        
-    }
 
     public void generation(Dropdown change)
     {
@@ -106,7 +104,7 @@ public class BuildingOnSurface : MonoBehaviour
 
         surfacePlan = (PlanScript.plan.transform.localScale.x * 10f) * (PlanScript.transform.localScale.z * 10f);
         
-
+        //list of options
         if (changeValue == 0)
         {
             clearScene();
@@ -126,7 +124,7 @@ public class BuildingOnSurface : MonoBehaviour
         if (changeValue == 2)
         {
             clearScene();
-            percentage = 35f / 100f;
+            percentage = 31f / 100f;
             duplicate();
 
         }
@@ -134,7 +132,7 @@ public class BuildingOnSurface : MonoBehaviour
         if (changeValue == 3)
         {
             clearScene();
-            percentage = 40f / 100f;
+            percentage = 32f / 100f;
             duplicate();
 
         }
@@ -142,7 +140,7 @@ public class BuildingOnSurface : MonoBehaviour
         if (changeValue == 4)
         {
             clearScene();
-            percentage = 45f / 100f;
+            percentage = 33f / 100f;
             duplicate();
 
         }
@@ -150,7 +148,7 @@ public class BuildingOnSurface : MonoBehaviour
         if (changeValue == 5)
         {
             clearScene();
-            percentage = 50f / 100f;
+            percentage = 34f / 100f;
             duplicate();
 
         }
@@ -158,7 +156,7 @@ public class BuildingOnSurface : MonoBehaviour
         if (changeValue == 6)
         {
             clearScene();
-            percentage = 55f / 100f;
+            percentage = 35f / 100f;
             duplicate();
 
         }
@@ -166,7 +164,7 @@ public class BuildingOnSurface : MonoBehaviour
         if (changeValue == 7)
         {
             clearScene();
-            percentage = 60f / 100f;
+            percentage = 36f / 100f;
             duplicate();
 
         }
@@ -174,12 +172,238 @@ public class BuildingOnSurface : MonoBehaviour
         if (changeValue == 8)
         {
             clearScene();
-            percentage = 65f / 100f;
+            percentage = 37f / 100f;
             duplicate();
 
         }
 
         if (changeValue == 9)
+        {
+            clearScene();
+            percentage = 38f / 100f;
+            duplicate();
+
+        }
+
+        if (changeValue == 10)
+        {
+            clearScene();
+            percentage = 39f / 100f;
+            duplicate();
+
+        }
+
+        if (changeValue == 11)
+        {
+            clearScene();
+            percentage = 40f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 12)
+        {
+            clearScene();
+            percentage = 41f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 13)
+        {
+            clearScene();
+            percentage = 42f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 14)
+        {
+            clearScene();
+            percentage = 43f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 15)
+        {
+            clearScene();
+            percentage = 44f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 16)
+        {
+            clearScene();
+            percentage = 45f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 17)
+        {
+            clearScene();
+            percentage = 46f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 18)
+        {
+            clearScene();
+            percentage = 47f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 19)
+        {
+            clearScene();
+            percentage = 48f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 20)
+        {
+            clearScene();
+            percentage = 49f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 21)
+        {
+            clearScene();
+            percentage = 50f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 22)
+        {
+            clearScene();
+            percentage = 51f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 23)
+        {
+            clearScene();
+            percentage = 52f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 24)
+        {
+            clearScene();
+            percentage = 53f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 25)
+        {
+            clearScene();
+            percentage = 54f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 26)
+        {
+            clearScene();
+            percentage = 55f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 27)
+        {
+            clearScene();
+            percentage = 56f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 28)
+        {
+            clearScene();
+            percentage = 57f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 29)
+        {
+            clearScene();
+            percentage = 58f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 30)
+        {
+            clearScene();
+            percentage = 59f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 31)
+        {
+            clearScene();
+            percentage = 60f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 32)
+        {
+            clearScene();
+            percentage = 61f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 33)
+        {
+            clearScene();
+            percentage = 62f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 34)
+        {
+            clearScene();
+            percentage = 63f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 35)
+        {
+            clearScene();
+            percentage = 64f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 36)
+        {
+            clearScene();
+            percentage = 65f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 37)
+        {
+            clearScene();
+            percentage = 66f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 38)
+        {
+            clearScene();
+            percentage = 67f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 39)
+        {
+            clearScene();
+            percentage = 68f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 40)
+        {
+            clearScene();
+            percentage = 69f / 100f;
+            duplicate();
+
+        }
+        if (changeValue == 41)
         {
             clearScene();
             percentage = 70f / 100f;
@@ -190,6 +414,16 @@ public class BuildingOnSurface : MonoBehaviour
 
     }
 
+   
+    private void dropdownValueChanged(Dropdown change)
+    {
+        ValueChangeCheck();
+        generation(change);
+
+    }
+
+
+    //function to generate buildings
     public void duplicate()
     {
         for (i = 0;  i < cubes.Length; i++)
@@ -229,6 +463,8 @@ public class BuildingOnSurface : MonoBehaviour
         
     }
 
+
+    //function to clear Buildings from the scene
     public void clearScene()
     {
         for (i = 0; i < cubes.Length; i++)
