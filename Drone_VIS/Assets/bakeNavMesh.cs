@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+
+/*THIS SCRIPT IS USED FOR BAKING NAVMESH DYNAMICALLY AFTER ADDING BUILDINGS TO THE MAP*/
+
+
 public class bakeNavMesh : MonoBehaviour
 {
     public NavMeshSurface[] surfaces;
 
-    // Update is called once per frame
     void Update()
     {
         for(int i =0; i < surfaces.Length; i++)
