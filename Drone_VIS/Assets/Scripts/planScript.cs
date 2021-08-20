@@ -9,9 +9,9 @@ public class planScript : MonoBehaviour
     [Space]
     [Space]
     //Scale multiplier
-    public int sizeX;
-    public int sizeY;
-    public int sizeZ;
+    public int scaleX;
+    public int scaleY;
+    public int scaleZ;
 
     [Space]
     [Space]
@@ -37,7 +37,7 @@ public class planScript : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        plan.transform.localScale = new Vector3(sizeX, sizeY, sizeZ);       //tranform by user value
+        plan.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);       //tranform by user value
         calculateSurfacePlane();
         calculateBoundaries();
     }
