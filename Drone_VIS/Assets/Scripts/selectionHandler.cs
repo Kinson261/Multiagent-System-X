@@ -31,15 +31,10 @@ public class selectionHandler : MonoBehaviour
         
         fillAgents();
         dropdownAgentSelected(dropdown);
+        GetPosition();
 
         //Adds listener for changed value in the dropdown
         dropdown.onValueChanged.AddListener(delegate { dropdownAgentSelected(dropdown); });
-    }
-
-    public void Update()
-    {
-        fillAgents();
-        GetPosition();
     }
 
 
@@ -48,6 +43,8 @@ public class selectionHandler : MonoBehaviour
     {
         int index = dropdown.value;
         currentSelection = GameObject.Find(dropdown.options[index].text);
+
+        GetPosition();
     }
 
     
@@ -92,5 +89,11 @@ public class selectionHandler : MonoBehaviour
             dropdown.options.Add(new Dropdown.OptionData() { text = item.name });
         }
 
+    }
+
+    public void Update()
+    {
+        fillAgents();
+        GetPosition();
     }
 }
