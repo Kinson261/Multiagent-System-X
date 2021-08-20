@@ -67,12 +67,12 @@ public class BuildiingManager : MonoBehaviour
         float.TryParse(inputOccupancy.text, out buildingOccupancy);
 
         //Adds listener for any value change
-        inputFieldMinX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMinY.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMinZ.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMaxX.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMaxY.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        inputFieldMaxZ.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMinX.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMinY.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMinZ.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxX.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxY.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
+        inputFieldMaxZ.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
         inputOccupancy.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
 
     }
