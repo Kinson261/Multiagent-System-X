@@ -75,6 +75,8 @@ public class playerController : MonoBehaviour
         float.TryParse(inputFieldTargetY.text, out SetPosY);
         float.TryParse(inputFieldTargetZ.text, out SetPosZ);
 
+        SetPosition();
+
     }
 
 
@@ -82,7 +84,6 @@ public class playerController : MonoBehaviour
     {
         currentSelection = selectionHandler.currentSelection;       //getting selected agent(drone or mobile robot)
         target = m_Toggle.isOn;                 //state of the toggle button
-        ValueChangeCheck();                     //getting updated value
 
 
         if (target == true)
