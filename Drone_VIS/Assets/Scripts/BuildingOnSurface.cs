@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
+using Mercuna;
+
+
+[ExecuteInEditMode]
 
 public class BuildingOnSurface : MonoBehaviour
 {
@@ -47,17 +52,18 @@ public class BuildingOnSurface : MonoBehaviour
     private float maxY;
     private float maxZ;
 
+    private MercunaNavOctree mercunaNavOctree;
 
     // Start is called before the first frame update
     void Start()
     {
         //init
-        inputFieldMinX.text = "8";
-        inputFieldMinY.text = "12";
-        inputFieldMinZ.text = "14";
-        inputFieldMaxX.text = "20";
-        inputFieldMaxY.text = "30";
-        inputFieldMaxZ.text = "24";
+        inputFieldMinX.text = "4";
+        inputFieldMinY.text = "4";
+        inputFieldMinZ.text = "4";
+        inputFieldMaxX.text = "8";
+        inputFieldMaxY.text = "8";
+        inputFieldMaxZ.text = "8";
 
         //converting string to float
         float.TryParse(inputFieldMinX.text, out minX);
@@ -419,7 +425,7 @@ public class BuildingOnSurface : MonoBehaviour
     {
         ValueChangeCheck();
         generation(change);
-
+        bakeNavOctree();
     }
 
 
@@ -473,5 +479,14 @@ public class BuildingOnSurface : MonoBehaviour
         }
         sum = 0;
 
+    }
+
+
+    public void bakeNavOctree()
+    {
+        GameObject.Find("Nav Octree").GetComponent<MercunaNavOctree>();
+        GameObject.Find("Nav Volume").GetComponent<MercunaNavVolume>();
+        GameObject.Find("Nav Seed").GetComponent<MercunaNavSeed>();
+        GameObject.Find("Nav Octree").GetComponent<MercunaNavOctree>().Build();
     }
 }
