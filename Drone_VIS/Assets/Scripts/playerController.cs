@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class playerController : MonoBehaviour
 {
-    private GameObject currentSelection;
+    public GameObject currentSelection;
     public selectionHandler selectionHandler;
 
     [Space]
@@ -27,14 +27,16 @@ public class playerController : MonoBehaviour
 
     [Space]
     [Space]
-    //Create a toggle object
-    public Toggle m_Toggle;
-    public bool target;                     //target is on
+    private float GetPosX;
+    private float GetPosY;
+    private float GetPosZ;
+    public Vector3 GetPos;
+  
 
     [Space]
     [Space]
-    public float maxSpeedMobileRobot;   
-    //public float maxSpeedDrone;
+    public float maxSpeedMobileRobot;
+    public float maxSpeedDrone;
 
     /*
      maxSpeedDrone IS NOT NEEDED SINCE WE DON'T USE NAV MESH TO CONTROL IT
@@ -60,12 +62,13 @@ public class playerController : MonoBehaviour
         inputFieldTargetY.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
         inputFieldTargetZ.onEndEdit.AddListener(delegate { ValueChangeCheck(); });
 
-        m_Toggle = GameObject.Find("ToggleTarget").GetComponent<Toggle>();
-        target = m_Toggle.isOn;                     //state of the toggle button
-
         maxSpeedMobileRobot = 8f;                   //define speed of mobile robots
-        //maxSpeedDrone = 15f;
+        maxSpeedDrone = 15f;
+
+
+
     }
+
 
     //function to update values from inputFields
     public void ValueChangeCheck()
@@ -75,52 +78,63 @@ public class playerController : MonoBehaviour
         float.TryParse(inputFieldTargetY.text, out SetPosY);
         float.TryParse(inputFieldTargetZ.text, out SetPosZ);
 
-        SetPosition();
+        SetPos = new Vector3(SetPosX, SetPosY, SetPosZ);
+
+        SetPosition(currentSelection, SetPos);
 
     }
 
 
-    public void SetPosition()
+
+    public Vector3 getPosition(GameObject agent)
     {
-        currentSelection = selectionHandler.currentSelection;       //getting selected agent(drone or mobile robot)
-        target = m_Toggle.isOn;                 //state of the toggle button
+        GetPosX = agent.transform.position.x;
+        GetPosY = agent.transform.position.x;
+        GetPosZ = agent.transform.position.x;
+
+        GetPos = new Vector3(GetPosX, GetPosY, GetPosZ);
+
+        return GetPos;
+    }
 
 
-        if (target == true)
-        {
-            SetPos = new Vector3(SetPosX, SetPosY, SetPosZ);            //Set position to user's input
-        }
-        else
-        {
-            //Set position to current position
-            SetPos = new Vector3(currentSelection.transform.position.x, currentSelection.transform.position.y, currentSelection.transform.position.z);
-        }
+    public void SetPosition(GameObject agent, Vector3 destination)
+    {
 
-        if (currentSelection.tag == "mobile robots")
+        if (agent.tag == "mobile robots")
         {
-            if (currentSelection.name == "MobileRobot0")
+            if (agent.name == "MobileRobot0")
             {
-                currentSelection.GetComponent<NavMeshAgent>().enabled = true;
+                agent.GetComponent<NavMeshAgent>().enabled = true;
                 /* COMPONENT NavMeshAgent DO NOT ALLOW US TO SPAWN OBJECTS AT RANDOM PLACES.
                  * SO I ACTIVATE IT ONLY WHEN IT IS NECESSARY.
                  * ONCE A CLONE SPAWNS, WE CAN ACTIVATE ITS NavMeshAgent COMPONENT
                  */
             }
 
-            currentSelection.GetComponent<NavMeshAgent>().SetDestination(SetPos);           //activates pathfinding to set destination
-            currentSelection.GetComponent<NavMeshAgent>().speed = maxSpeedMobileRobot;      //set rover speed
+            agent.GetComponent<NavMeshAgent>().SetDestination(destination);           //activates pathfinding to set destination
+            agent.GetComponent<NavMeshAgent>().speed = maxSpeedMobileRobot;      //set rover speed
         }
 
 
-        if (currentSelection.tag == "Drone")
+        if (agent.tag == "Drone")
         {
             /*FLYING OBJECTS DOESN'T WORK WELL WITH "NavMesh".
              * FOR DRONES I DECIDED TO USE "Mercuna3DNavigation"
              * TO CONTROL DRONE SPEED, PLEASE REFER TO COMPONENT "Mercuna Move controller" ATTACHED TO DRONE"
              */
-            currentSelection.GetComponent<Mercuna.Mercuna3DNavigation>().NavigateToLocation(SetPos);
 
-            
+            agent.GetComponent<Mercuna.Mercuna3DNavigation>().NavigateToLocation(destination);
+
+            //currentSelection.transform.position = Vector3.MoveTowards(transform.position, SetPos, maxSpeedDrone * Time.deltaTime);
+            ////currentSelection.transform.position = Vector3.Lerp(transform.position, SetPos, maxSpeedDrone * Time.deltaTime);
+
+
         }
+    }
+
+    public void Update()
+    {
+        currentSelection = selectionHandler.currentSelection;
     }
 }
