@@ -96,6 +96,8 @@ public class dropdownValueDrones : MonoBehaviour
         float.TryParse(inputFieldY.text, out initPosY);
         float.TryParse(inputFieldZ.text, out initPosZ);
 
+        pos = new Vector3(initPosX, initPosY, initPosZ);
+
     }
 
     //function to evaluate the state of toggle button
@@ -111,12 +113,12 @@ public class dropdownValueDrones : MonoBehaviour
         determineI();
         iMax = (int)m_Dropdown.value;           //new value
         ToggleValueChanged(m_Toggle);
-        Duplicate();
+        Duplicate(drones, pos);
         Delete();
     }
 
 
-
+    /*
     //function to generate drones
     public void Duplicate()
     {
@@ -146,6 +148,20 @@ public class dropdownValueDrones : MonoBehaviour
 
         }
 
+    }
+    */
+
+    public void Duplicate(GameObject[] drones, Vector3 SpawnLocation)
+    {
+        for (i = NB.Length; i <= iMax; i++)
+        {
+            drones[i] = Instantiate(objectToCopy);          //generate drones
+
+            drones[i].transform.position = SpawnLocation;
+            drones[i].transform.rotation = Quaternion.identity;
+            drones[i].name = "MAV" + i;
+            SpawnLocation.x += 3f;                //shifting to give space to the next drone
+        }
     }
 
 

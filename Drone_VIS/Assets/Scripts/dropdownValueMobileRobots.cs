@@ -97,6 +97,8 @@ public class dropdownValueMobileRobots : MonoBehaviour
         float.TryParse(inputFieldY.text, out initPosY);
         float.TryParse(inputFieldZ.text, out initPosZ);
 
+        pos = new Vector3(initPosX, initPosY, initPosZ);
+
     }
 
     //function to evaluate the state of toggle button
@@ -111,12 +113,12 @@ public class dropdownValueMobileRobots : MonoBehaviour
         determineI();
         iMax = (int)m_Dropdown.value;           //new value
         ToggleValueChanged(m_Toggle);
-        Duplicate();
+        Duplicate(rovers, pos);
         Delete();
 
     }
 
-
+    /*
     //function to generate drones
     public void Duplicate()
     {
@@ -150,6 +152,21 @@ public class dropdownValueMobileRobots : MonoBehaviour
         }
 
     }
+    */
+    public void Duplicate(GameObject[] rovers, Vector3 SpawnLocation)
+    {
+        for (i = NB.Length; i <= iMax; i++)
+        {
+            rovers[i] = Instantiate(objectToCopy);          //generate rovers
+
+            rovers[i].transform.position = SpawnLocation;
+            rovers[i].transform.rotation = Quaternion.identity;
+            rovers[i].name = "MobileRobot" + i;
+            SpawnLocation.x += 3f;                //shifting to give space to the next drone
+        }
+    }
+
+
     //function to delete rovers
     public void Delete()
     {
