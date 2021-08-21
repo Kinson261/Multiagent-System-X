@@ -7,12 +7,26 @@ public class cameraControllerScene : MonoBehaviour
 {
     public float cameraSpeed;                   //Multiplier for camera Speed
     public float cameraRotatingSpeed;           //Multiplier for camera rotating speed
+    
 
+    //parameters for zooming in and out
+    private float minFOV;                   //minimum Field Of View
+    private float maxFOV;                   //maximum Field Of View
+    private float FOV;                      //Field Of View
+    public float sensitivity;
 
     [Space]
     [Space]
     public Text xText;
     public Text zText;
+
+    private void Start()
+    {
+        //init
+        minFOV = 15f;
+        maxFOV = 90f;
+        FOV = Camera.main.fieldOfView;
+    }
 
 
     // Update is called once per frame
@@ -31,8 +45,14 @@ public class cameraControllerScene : MonoBehaviour
 
         }
 
+        
+        FOV -= (Input.GetAxis("Mouse ScrollWheel") * sensitivity);
+        FOV = Mathf.Clamp(FOV, minFOV, maxFOV);             //clamping value between minFOV and maxFOV
+        Camera.main.fieldOfView = FOV;
+
         xText.text = " X: " + Camera.main.transform.position.x.ToString();
         zText.text = " Z: " + Camera.main.transform.position.z.ToString();
 
     }
+
 }
