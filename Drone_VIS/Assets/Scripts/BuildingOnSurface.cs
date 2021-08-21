@@ -45,12 +45,12 @@ public class BuildingOnSurface : MonoBehaviour
     [Space]
     [Space]
     //Associating float to inputfield
-    private float minX;
-    private float minY;
-    private float minZ;
-    private float maxX;
-    private float maxY;
-    private float maxZ;
+    public float minX;
+    public float minY;
+    public float minZ;
+    public float maxX;
+    public float maxY;
+    public float maxZ;
 
     private MercunaNavOctree mercunaNavOctree;
 
