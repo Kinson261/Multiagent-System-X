@@ -113,7 +113,7 @@ public class dropdownValueMobileRobots : MonoBehaviour
         determineI();
         iMax = (int)m_Dropdown.value;           //new value
         ToggleValueChanged(m_Toggle);
-        Duplicate(rovers, pos);
+        Duplicate(objectToCopy, pos);
         Delete();
 
     }
@@ -153,15 +153,15 @@ public class dropdownValueMobileRobots : MonoBehaviour
 
     }
     */
-    public void Duplicate(GameObject[] rovers, Vector3 SpawnLocation)
+    public void Duplicate(GameObject rover, Vector3 SpawnLocation)
     {
         for (i = NB.Length; i <= iMax; i++)
         {
-            rovers[i] = Instantiate(objectToCopy);          //generate rovers
+            rover = Instantiate(objectToCopy);          //generate rovers
 
-            rovers[i].transform.position = SpawnLocation;
-            rovers[i].transform.rotation = Quaternion.identity;
-            rovers[i].name = "MobileRobot" + i;
+            rover.transform.position = SpawnLocation;
+            rover.transform.rotation = Quaternion.identity;
+            rover.name = "MobileRobot" + i;
             SpawnLocation.x += 3f;                //shifting to give space to the next drone
         }
     }
