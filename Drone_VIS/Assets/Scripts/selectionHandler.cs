@@ -20,7 +20,8 @@ public class selectionHandler : MonoBehaviour
     public int i;
 
     public List<GameObject> allAgents;                      //Lkst of all agents
-
+    public List<GameObject> allRovers;
+    public List<GameObject> allDrones;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +75,7 @@ public class selectionHandler : MonoBehaviour
         for (i = 0; i < objectsWithTagsDrone.Length; i++)
         {
             allAgents.Add(objectsWithTagsDrone[i]);
+            allDrones.Add(objectsWithTagsDrone[i]);
         }
 
         //Adds rovers to the list of all agents
@@ -81,6 +83,7 @@ public class selectionHandler : MonoBehaviour
         for (i = 0; i < objectsWithTagsMobileRobot.Length; i++)
         {
             allAgents.Add(objectsWithTagsMobileRobot[i]);
+            allRovers.Add(objectsWithTagsMobileRobot[i]);
         }
 
         //Fill dropdown with agents
