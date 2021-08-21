@@ -61,7 +61,9 @@ public class selectionHandler : MonoBehaviour
     public void fillAgents()
     {
 
-        List<GameObject> allAgents = new List<GameObject>();
+        allAgents = new List<GameObject>();
+        allDrones = new List<GameObject>();
+        allRovers = new List<GameObject>();
         dropdown.options.Clear();
 
         allAgents.Add(GameObject.Find("None"));
