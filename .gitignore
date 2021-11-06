@@ -58,4 +58,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Drone_VIS/Assets/Mercuna/Examples.meta
+#Mercuna
+Drone_VIS/Assets/Mercuna/
